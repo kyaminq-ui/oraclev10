@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.\\(cs|prefab|unity\\)$\")",
+      "Bash(findstr /r /s \"HubPlayer.prefab\" Assets\\\\_Game\\\\Scripts\\\\*.cs)"
+    ]
+  }
+}

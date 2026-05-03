@@ -57,12 +57,8 @@ public class IsometricDepthSort : MonoBehaviour
         int        gx = Mathf.Clamp(g.x, 0, w - 1);
         int        gy = Mathf.Clamp(g.y, 0, h - 1);
 
-        // Même formule que les obstacles dans ArenaGenerator :
-        //   sr.sortingOrder = orderBias + (isObstacle ? baseOrder + w*h : baseOrder - w*h)
-        // Le personnage utilise +w*h (même couche que l'obstacle).
-        // Démonstration : pour |Δrow| = 1 entre personnage et obstacle,
-        //   le tri est toujours correct quel que soit la position en colonne.
-        sr.sortingOrder = bias + (-(gy * w + gx)) + w * h;
+        // Même base que les obstacles (ArenaGenerator) + offset fin pour ajuster vs sprites hauts.
+        sr.sortingOrder = bias + (-(gy * w + gx)) + w * h + cfg.characterSortingOrderFineOffset;
     }
 
     /// <summary>

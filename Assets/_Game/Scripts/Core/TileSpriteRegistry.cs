@@ -5,6 +5,9 @@ using UnityEngine;
 /// Assigne les sprites depuis les dossiers sous Assets/_Game/Sprites (sols NewTilesV4, obstacles newobstacle).
 /// Créer via : Clic droit → Create → Arena → Tile Sprite Registry
 ///
+/// Pack « World » : textures sous <c>Assets/_Game/Sprites/World</c> (copie depuis le dossier World à la racine du projet).
+/// Menu Unity : <b>Oracle → Remplir TileSpriteRegistry depuis Sprites/World</b> pour assigner sols / obstacles / centre.
+///
 /// IMPORTANT — Import des GIF dans Unity :
 /// Sélectionne chaque sprite dans le Project, puis dans l'Inspector :
 ///   Texture Type      → Sprite (2D and UI)
@@ -65,7 +68,7 @@ public class TileSpriteRegistry : ScriptableObject
     // =========================================================
 
     [Header("=== OBSTACLES (GROUND_OBSTACLE* …) ===")]
-    [Tooltip("Sprites obstacles procéduraux (ex. dossier Sprites/newobstacle). Tirage aléatoire par case.")]
+    [Tooltip("Sprites obstacles procéduraux (ex. Assets/_Game/Sprites/World : murs, piliers, props). Tirage aléatoire par case.")]
     public Sprite[] obstacleTiles;
 
     // =========================================================
@@ -136,7 +139,8 @@ public class TileSpriteRegistry : ScriptableObject
         if (sprite == null) return true;
 
         string n = sprite.name.ToLowerInvariant();
-        return n.Contains("chest") || n.Contains("botte") || n.Contains("foin");
+        return n.Contains("chest") || n.Contains("botte") || n.Contains("foin") ||
+               n.Contains("portail") || n.Contains("cercle_rituel");
     }
 
     /// <summary>Bordure pour la case (x,y) : index périmètre → EDGE 1..12 cyclique.</summary>

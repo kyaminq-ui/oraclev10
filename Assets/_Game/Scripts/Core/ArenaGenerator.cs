@@ -639,7 +639,10 @@ public class ArenaGenerator : MonoBehaviour
 
                 GameObject tileGO = new GameObject($"Tile_{x}_{y}");
                 tileGO.transform.SetParent(tileContainer, worldPositionStays: false);
-                tileGO.transform.position = cell.WorldPosition + spriteOffset;
+                Vector3 obstacleExtra = type == CellTileType.Obstacle && gridConfig != null
+                    ? gridConfig.arenaObstacleSpriteWorldOffset
+                    : Vector3.zero;
+                tileGO.transform.position = cell.WorldPosition + spriteOffset + obstacleExtra;
 
                 SpriteRenderer sr = tileGO.AddComponent<SpriteRenderer>();
                 sr.sprite = sprite;
@@ -648,7 +651,9 @@ public class ArenaGenerator : MonoBehaviour
                 // Tri pseudo-isométrique : plus la case est « bas / droite », plus elle est dessinée devant.
                 bool isObstacle = type == CellTileType.Obstacle;
                 int  baseOrder  = -(y * w + x);
-                sr.sortingOrder = orderBias + (isObstacle ? baseOrder + w * h : baseOrder - w * h);
+                int  obstaclePull = gridConfig != null ? gridConfig.arenaObstacleSortingOrderOffset : 0;
+                sr.sortingOrder = orderBias +
+                    (isObstacle ? baseOrder + w * h - obstaclePull : baseOrder - w * h);
 
                 if (!isObstacle && !(arenaConfig.useExclusiveCenterArenaFloor && IsReservedExclusiveArenaCenterCell(x, y, w, h)))
                 {

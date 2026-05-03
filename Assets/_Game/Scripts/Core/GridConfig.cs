@@ -53,11 +53,24 @@ public class GridConfig : ScriptableObject
     [Tooltip("Ajoutée à Cell.WorldPosition pour chaque tuile décorative : corrige pivots différents / micro-décalage Z pour le « 2.5D ».")]
     public Vector3 arenaTileSpriteWorldOffset = Vector3.zero;
 
+    [Tooltip("Ajoutée en plus de arenaTileSpriteWorldOffset uniquement pour les tuiles d’obstacle (cases Obstacle).\n" +
+             "Utile si les sprites d’obstacle ont un pivot différent des sols.")]
+    public Vector3 arenaObstacleSpriteWorldOffset = Vector3.zero;
+
     [Tooltip("Si non vide, tous les SpriteRenderer des tuiles d'arène utilisent ce Sorting Layer (créer dans Edit → Project Settings → Tags and Layers).")]
     public string arenaTileSortingLayerName = "";
 
     [Tooltip("Valeur ajoutée au tri calculé (ordre relatif sol / obstacle). Réglage commun : 0.")]
     public int arenaTileSortingOrderBias = 0;
+
+    [Tooltip("Soustrait ce nombre du sortingOrder des tuiles OBSTACLE uniquement.\n" +
+             "0 = inchangé. Valeurs typiques 2–8 si les sprites d’obstacle sont très hauts et que le joueur\n" +
+             "semble passer « derrière » la partie haute d’un obstacle alors qu’il est plus près du spectateur.")]
+    public int arenaObstacleSortingOrderOffset = 0;
+
+    [Tooltip("Ajouté au sortingOrder des personnages (TacticalCharacter / IsometricDepthSort), après la formule iso.\n" +
+             "0 = inchangé. À ajuster avec arenaObstacleSortingOrderOffset si le rendu reste incorrect.")]
+    public int characterSortingOrderFineOffset = 0;
 
     [Header("=== VISUELS ===")]
     [Tooltip("Sprite utilisé pour afficher une cellule")]

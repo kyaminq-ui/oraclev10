@@ -21,9 +21,12 @@ MonoBehaviour:
   characterSortingBias: 1000
   mousePickOffset: {x: 0, y: 0}
   cellHighlightYOffset: 0.17
-  arenaTileSpriteWorldOffset: {x: 0, y: 0, z: 0}
+  arenaTileSpriteWorldOffset: {x: 0, y: 0.2, z: 0}
+  arenaObstacleSpriteWorldOffset: {x: 0, y: 0.2, z: 0}
   arenaTileSortingLayerName: 
   arenaTileSortingOrderBias: 0
+  arenaObstacleSortingOrderOffset: 0
+  characterSortingOrderFineOffset: 0
   cellSprite: {fileID: 0}
   defaultCellColor: {r: 1, g: 1, b: 1, a: 0}
   moveColor: {r: 0.2, g: 0.5, b: 1, a: 0.6}

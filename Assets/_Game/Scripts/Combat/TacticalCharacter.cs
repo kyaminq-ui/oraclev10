@@ -683,9 +683,8 @@ public class TacticalCharacter : MonoBehaviour
         int        gx = Mathf.Clamp(g.x, 0, w - 1);
         int        gy = Mathf.Clamp(g.y, 0, h - 1);
 
-        // Miroir exact de la formule obstacle (ArenaGenerator) : baseOrder + w*h.
-        // Preuve : pour des cases adjacentes (|Δrow| = 1), le personnage est correctement
-        // devant ou derrière l'obstacle selon qui est le plus proche du spectateur.
-        spriteRenderer.sortingOrder = orderBias + (-(gy * w + gx)) + w * h;
+        // Miroir de la formule obstacle (ArenaGenerator) : baseOrder + w*h, + offset fin (GridConfig).
+        int fine = cfg.characterSortingOrderFineOffset;
+        spriteRenderer.sortingOrder = orderBias + (-(gy * w + gx)) + w * h + fine;
     }
 }
