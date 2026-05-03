@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af2cb7963aca5f43bbe22908a1e7159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellName: Dague de Verre
+  deckCategory: 0
+  icon: {fileID: 21300000, guid: 8e80c0db0f59bc04d9db2ac9c5d54911, type: 3}
+  description: "56 d\xE9g\xE2ts. +72 si c'est au moins ton 3e sort C\xE0C ce tour."
+  synergyDescription: "Encha\xEEnements C\xE0C."
+  paCost: 2
+  cooldown: 0
+  isMeleeOnly: 1
+  rangeMin: 1
+  rangeMax: 1
+  requiresLineOfSight: 0
+  ignoresLineOfSight: 0
+  zoneType: 0
+  aoeRadius: 0
+  effects:
+  - type: 0
+    value: 56
+    duration: 0
+    condition: 0
+    conditionThreshold: 0
+    conditionMultiplier: 1
+  - type: 0
+    value: 72
+    duration: 0
+    condition: 7
+    conditionThreshold: 0
+    conditionMultiplier: 1
+  castAnimationBaseId: 
