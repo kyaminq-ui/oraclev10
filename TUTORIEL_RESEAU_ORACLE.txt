@@ -1,0 +1,88 @@
+================================================================================
+TUTORIEL RÉSEAU ORACLE — PHOTON PUN 2 (version 2026-05-03)
+================================================================================
+
+Objectif:
+Lancer un 1v1 réseau stable avec le flux projet actuel.
+
+--------------------------------------------------------------------------------
+1) PRÉREQUIS
+--------------------------------------------------------------------------------
+
+1. App Photon configurée dans PhotonServerSettings (AppId valide).
+2. Même gameVersion sur les deux clients.
+3. Connexion internet active.
+
+--------------------------------------------------------------------------------
+2) FLUX SCÈNES RECOMMANDÉ
+--------------------------------------------------------------------------------
+
+Ordre de build actuel:
+1. MainMenu
+2. Hub
+3. Monjeu
+4. Ranked1v1
+5. Boot_Network
+
+Flux nominal recommandé:
+MainMenu -> Hub -> matchmaking 1v1 -> chargement Ranked1v1.
+
+--------------------------------------------------------------------------------
+3) COMPOSANTS RÉSEAU CLÉS
+--------------------------------------------------------------------------------
+
+- OracleNetworkHub:
+  connexion Photon, room, callbacks.
+- HubMatchmaker:
+  matchmaking 1v1, gestion remplissage room, sync de scène.
+- OracleCombatNetBridge:
+  RPC de combat (move, cast, end turn, placement).
+
+--------------------------------------------------------------------------------
+4) CE QUI EST DÉJÀ SYNCHRONISÉ
+--------------------------------------------------------------------------------
+
+- Déplacement
+- Cast sort
+- Fin de tour
+- Placement
+
+Validation d’action orientée MasterClient (autorité côté hôte).
+
+--------------------------------------------------------------------------------
+5) POINTS ENCORE À DURCIR
+--------------------------------------------------------------------------------
+
+1. Sélection passifs:
+   actuellement le tirage est local et doit devenir autoritaire/synchronisé.
+2. Déconnexions:
+   comportement de forfait et retour de flux à finaliser proprement.
+3. Migration master:
+   garantir la continuité si le host quitte.
+
+--------------------------------------------------------------------------------
+6) CHECKLIST DEBUG RAPIDE
+--------------------------------------------------------------------------------
+
+Si les actions ne partent pas:
+- vérifier que les 2 clients sont dans la même room
+- vérifier gameVersion
+- vérifier OracleCombatNetBridge actif
+- vérifier que c’est bien le tour du joueur local
+
+Si les états divergent:
+- vérifier la phase passif (point connu)
+- vérifier logs des RPC côté host et client
+
+--------------------------------------------------------------------------------
+7) FICHIERS À CONSULTER
+--------------------------------------------------------------------------------
+
+- Assets/_Game/Scripts/Network/OracleNetworkHub.cs
+- Assets/_Game/Scripts/Network/OracleCombatNetBridge.cs
+- Assets/_Game/Scripts/Hub/HubMatchmaker.cs
+- Assets/_Game/Scripts/Combat/CombatInitializer.cs
+
+================================================================================
+FIN
+================================================================================

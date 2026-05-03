@@ -1,0 +1,72 @@
+================================================================================
+TEST 2 JOUEURS SUR LE MÊME PC — ORACLE (version 2026-05-03)
+================================================================================
+
+Objectif:
+Tester un match 1v1 réel avec une instance Build + une instance Unity Editor.
+
+--------------------------------------------------------------------------------
+1) RÈGLE IMPORTANTE
+--------------------------------------------------------------------------------
+
+Dans un seul projet Unity, tu ne peux pas avoir deux sessions Play en parallèle.
+Il faut:
+- un exécutable build
+- et l’éditeur en Play
+
+--------------------------------------------------------------------------------
+2) PRÉPARATION
+--------------------------------------------------------------------------------
+
+1. Vérifie l’AppId Photon.
+2. Vérifie que `gameVersion` est identique partout.
+3. Build Windows du projet.
+
+Ordre de scènes de référence:
+1. MainMenu
+2. Hub
+3. Monjeu
+4. Ranked1v1
+5. Boot_Network
+
+--------------------------------------------------------------------------------
+3) PROCÉDURE DE TEST
+--------------------------------------------------------------------------------
+
+1. Lance l’exécutable (joueur A).
+2. Dans Unity, lance Play (joueur B).
+3. Va jusqu’au Hub/matchmaking.
+4. Démarre un 1v1.
+5. Vérifie en jeu:
+   - déplacement synchronisé
+   - cast synchronisé
+   - fin de tour synchronisée
+
+--------------------------------------------------------------------------------
+4) SI LE MATCH NE DÉMARRE PAS
+--------------------------------------------------------------------------------
+
+Checklist:
+- Les 2 instances utilisent la même AppId Photon.
+- Les 2 instances utilisent la même gameVersion.
+- Les 2 instances rejoignent la même room.
+- Aucune erreur C# bloquante en console.
+
+--------------------------------------------------------------------------------
+5) SI LES ACTIONS NE SE RÉPLIQUENT PAS
+--------------------------------------------------------------------------------
+
+- Vérifier OracleCombatNetBridge actif.
+- Vérifier qu’il y a bien 2 joueurs dans la room.
+- Vérifier que l’action est envoyée pendant le tour du bon joueur.
+
+--------------------------------------------------------------------------------
+6) LIMITES CONNUES ACTUELLES
+--------------------------------------------------------------------------------
+
+- La sélection des passifs doit encore être totalement autoritaire/synchronisée.
+- Les scénarios de déconnexion restent à durcir (forfait/reprise).
+
+================================================================================
+FIN
+================================================================================

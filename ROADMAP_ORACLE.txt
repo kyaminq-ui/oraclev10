@@ -1,0 +1,126 @@
+================================================================================
+ROADMAP ORACLE — VERSION ACTIVE (mise à jour 2026-05-03)
+================================================================================
+
+But de ce document:
+- fournir une source de vérité concise pour l’exécution produit
+- remplacer les anciennes checklists devenues contradictoires
+- piloter la stabilisation MVP 1v1 en ligne
+
+================================================================================
+1) ÉTAT RÉEL DU PROJET
+================================================================================
+
+Socle déjà fonctionnel:
+- Combat tactique isométrique: grille, pathfinding, occupation, obstacles.
+- Système de tours: initiative, timer, PA/PM, fin de tour.
+- Système de sorts: cast, validation, résolution, cooldowns, log.
+- Deck et HUD combat: 6 sorts, UI combat, timer visuel.
+- Passifs: pool, sélection pré-combat, application runtime.
+- Réseau 1v1: connexion room, matchmaking hub, bridge RPC déplacement/sort/fin de tour/placement.
+
+Ordre de build actuel (source: ProjectSettings/EditorBuildSettings.asset):
+1. Assets/_Game/Scenes/MainMenu.unity
+2. Assets/_Game/Scenes/Hub.unity
+3. Assets/Monjeu.unity
+4. Assets/_Game/Scenes/Ranked1v1.unity
+5. Assets/Boot_Network.unity
+
+Dette critique restante:
+- Sélection des passifs non autoritaire réseau (risque de désync).
+- Gestion des déconnexions/migration master à durcir.
+- Clarification finale du flux scène online officiel (hub/ranked/boot).
+
+================================================================================
+2) OBJECTIF PRODUIT COURT TERME
+================================================================================
+
+Livrer un MVP 1v1 en ligne stable, équitable et testable:
+- même état de combat sur les deux clients
+- résultat de match fiable en cas d’erreur réseau
+- boucle de jeu fluide (passif -> placement -> combat -> résultat)
+
+Hors scope MVP:
+- 2v2, 3v3
+- MMR avancé et saisons
+- replay/spectateur
+
+================================================================================
+3) PLAN D’EXÉCUTION EN 3 PHASES
+================================================================================
+
+PHASE A — Stabilisation de la vérité réseau (priorité absolue)
+---------------------------------------------------------------
+1. Passifs synchronisés:
+   - tirage d’offre passifs par seed partagé ou autorité MasterClient
+   - validation du choix passif via RPC/événement réseau
+2. Timeouts et fin de tour:
+   - une seule autorité réseau pour expirer un tour
+3. Déconnexion:
+   - règle explicite (forfait, victoire adverse, retour hub)
+4. Migration MasterClient:
+   - stratégie de reprise des rôles critiques sans incohérence
+
+Critères de sortie phase A:
+- 10+ matchs test 1v1 sans désynchronisation visible
+- pas de blocage de combat après déconnexion d’un joueur
+
+PHASE B — Durcissement gameplay + UX de match
+---------------------------------------------
+1. Validation renforcée des actions réseau (cast/move/end turn).
+2. Messages UI clairs:
+   - état de connexion
+   - attente adversaire
+   - fin de match (victoire/forfait)
+3. Test de robustesse:
+   - latence simulée
+   - pertes temporaires de connexion
+   - rejoin/retry selon stratégie retenue
+
+Critères de sortie phase B:
+- tests passants sur scénarios nominal + perturbés
+- expérience utilisateur compréhensible sans debug console
+
+PHASE C — Polish MVP et release candidate
+-----------------------------------------
+1. Harmonisation HUD et feedback combat.
+2. Audio/VFX minimum viable.
+3. Nettoyage final des logs/debug temporaires.
+4. Guide d’exploitation:
+   - comment lancer un test 2 joueurs
+   - comment diagnostiquer les incidents réseau courants
+
+Critères de sortie phase C:
+- checklist MVP validée
+- release candidate interne jouable end-to-end
+
+================================================================================
+4) DÉFINITION OF DONE (MVP 1V1 ONLINE)
+================================================================================
+
+Le MVP est considéré prêt si:
+- sélection passif synchrone et validée des deux côtés
+- placement, déplacement, sort, fin de tour synchronisés sans divergence
+- gestion déconnexion claire et reproductible
+- résultat de match déterministe (pas de double-victoire ni blocage)
+- parcours MainMenu -> Hub -> Match -> Combat -> Résultat fonctionnel
+
+================================================================================
+5) ENTRETIEN DOCUMENTAIRE
+================================================================================
+
+À chaque grosse modification:
+1. mettre à jour ce roadmap
+2. aligner README + tutoriels
+3. éviter les doubles sources contradictoires
+
+Fichiers de référence:
+- README.md
+- TUTORIEL_RESEAU_ORACLE.txt
+- TUTORIEL_TEST_2_JOUEURS_PC.txt
+- CLEANUP_AUDIT_2026-05-03.md
+- ORACLE_SCRIPTS_CLASSIFICATION_2026-05-03.md
+
+================================================================================
+FIN
+================================================================================
